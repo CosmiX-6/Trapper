@@ -19,7 +19,8 @@ class Trapper(commands.Bot):
         super().__init__(
             command_prefix=commands.when_mentioned_or('!'),
             intents=intents,
-            help_command=None  # We'll implement our own help command
+            help_command=None,  # We'll implement our own help command
+            case_insensitive=True  # Commands are case-insensitive
         )
         
         # Store server-specific data
@@ -31,6 +32,11 @@ class Trapper(commands.Bot):
         
         # Load extensions from the commands directory
         await self.load_extensions()
+        
+        # Sync commands with Discord
+        logger.info("Syncing commands with Discord...")
+        await self.tree.sync()
+        logger.info("Commands synced successfully!")
         
     async def load_extensions(self):
         """Load all extensions from the commands directory"""
