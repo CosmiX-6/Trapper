@@ -1,7 +1,7 @@
 from discord.ext import commands
 from discord import app_commands
 import discord
-from utils.server_settings import ServerSettings
+from src.utils.server_settings import ServerSettings
 
 class Settings(commands.Cog):
     def __init__(self, bot: commands.Bot):

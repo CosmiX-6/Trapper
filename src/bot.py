@@ -38,7 +38,8 @@ class Trapper(commands.Bot):
         for filename in os.listdir(commands_dir):
             if filename.endswith('.py') and not filename.startswith('_'):
                 try:
-                    await self.load_extension(f'commands.{filename[:-3]}')
+                    # Use full package path for loading extensions
+                    await self.load_extension(f'src.commands.{filename[:-3]}')
                     logger.info(f"Loaded extension: {filename[:-3]}")
                 except Exception as e:
                     logger.error(f"Failed to load extension {filename}: {e}")
@@ -80,7 +81,7 @@ def main():
     
     # Start keep_alive server if running on Replit
     if os.getenv('REPL_ID'):
-        from utils.keep_alive import keep_alive
+        from src.utils.keep_alive import keep_alive
         keep_alive()
 
     # Run the bot
